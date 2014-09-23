@@ -265,7 +265,7 @@ Here's a walkthrough of what these fields mean:
 | value.order | | integer | Ignore for now |
 | value.required | X | boolean | Is specification of this input mandatory to run a job? |
 | value.validator | | string | [Perl-format regular expression](https://www.cs.tut.fi/~jkorpela/perl/regexp.html) to restrict valid values |
-| id.value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
+| value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
 | semantics.ontology | | array[string] | List of ontology terms (or URIs pointing to ontology terms) applicable to the input format |
 | semantics.minCardinality | | integer | Minimum number of values accepted for this input |
 | semantics.maxCardinality | | integer | Maximum number of values accepted for this input |
