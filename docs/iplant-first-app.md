@@ -261,10 +261,10 @@ Here's a walkthrough of what these fields mean:
 | Field | Mandatory | Type | Description |
 | ----- | --------- | ---- | ----------- |
 | id | X | string | This is the "name" of the file. You will use this in your wrapper script later whenever you need to refer to the BAM file being sorted |
-| id.value.default | | string | The path, relative to X, of the default value for the input |
-| id.value.order | | integer | Ignore for now |
-| id.value.required | X | boolean | Is specification of this input mandatory to run a job? |
-| id.value.validator | | string | [Java-format regular expression](http://ocpsoft.org/opensource/guide-to-regular-expressions-in-java-part-1/) to restrict valid values |
+| value.default | | string | The path, relative to X, of the default value for the input |
+| value.order | | integer | Ignore for now |
+| value.required | X | boolean | Is specification of this input mandatory to run a job? |
+| value.validator | | string | [Perl-format regular expression](https://www.cs.tut.fi/~jkorpela/perl/regexp.html) to restrict valid values |
 | id.value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
 | semantics.ontology | | array[string] | List of ontology terms (or URIs pointing to ontology terms) applicable to the input format |
 | semantics.minCardinality | | integer | Minimum number of values accepted for this input |
@@ -304,12 +304,12 @@ Parameters are specified in a JSON array, and are broadly similar to inputs. Her
 | Field | Mandatory | Type | Description |
 | ----- | --------- | ---- | ----------- |
 | id | X | string | This is the "name" of the parameter. At runtime, it will be replaced in your script template based on the value passed as part of the job specification |
-| id.value.default | | string | If your app has a fixed-name output, specify it here |
-| id.value.order | | integer | Ignore for now. Supports automatic generation of command lines. |
-| id.value.required | | boolean | Is specification of this parameter mandatory to run a job?  |
-| id.value.type | | string | JSON type for this parameter (used to generate and validate UI). Valid values: "string", "number", "enumeration", "bool", "flag" |
-| id.value.validator | | string | [Java-format regular expression](http://ocpsoft.org/opensource/guide-to-regular-expressions-in-java-part-1/) to restrict valid values |
-| id.value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
+| value.default | | string | If your app has a fixed-name output, specify it here |
+| value.order | | integer | Ignore for now. Supports automatic generation of command lines. |
+| value.required | | boolean | Is specification of this parameter mandatory to run a job?  |
+| value.type | | string | JSON type for this parameter (used to generate and validate UI). Valid values: "string", "number", "enumeration", "bool", "flag" |
+| value.validator | | string | [Perl-formatted regular expression](https://www.cs.tut.fi/~jkorpela/perl/regexp.html) to restrict valid values |
+| value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
 | semantics.ontology | | array[string] | List of ontology terms (or URIs pointing to ontology terms) applicable to the parameter. We recommend at least specifying an [XSL Schema Simple Type](http://www.schemacentral.com/sc/xsd/s-datatypes.xsd.html). |
 | details.description | | string | Human-readable description of the parameter. Often used to create contextual help in automatically generated UI |
 | details.label | | string | Human-readable label for the parameter. Often implemented as text label next to the field in automatically generated UI |
