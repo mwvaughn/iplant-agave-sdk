@@ -345,11 +345,11 @@ Obligatory field walk-through:
 | Field | Mandatory | Type | Description |
 | ----- | --------- | ---- | ----------- |
 | id | X | string | This is the "name" of the output. It is not currently used by the wrapper script but may be in the future|
-| id.value.default | | string | If your app has a fixed-name output, specify it here |
-| id.value.order | | integer | Ignore for now |
-| id.value.required | X | boolean | Is specification of this input mandatory to run a job? |
-| id.value.validator | | string | [Java-format regular expression](http://ocpsoft.org/opensource/guide-to-regular-expressions-in-java-part-1/) used to match output files |
-| id.value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
+| value.default | | string | If your app has a fixed-name output, specify it here |
+| value.order | | integer | Ignore for now |
+| value.required | X | boolean | Is specification of this input mandatory to run a job? |
+| value.validator | | string | [Perl-format regular expression](https://www.cs.tut.fi/~jkorpela/perl/regexp.html) used to match output files |
+| value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
 | semantics.ontology | | array[string] | List of ontology terms (or URIs pointing to ontology terms) applicable to the output format |
 | semantics.minCardinality | | integer | Minimum number of values expected for this output |
 | semantics.maxCardinality | | integer | Maximum number of values expected for this output |
@@ -362,9 +362,8 @@ Obligatory field walk-through:
 *Note*: If the app you are working on doesn't natively produce output with a predictable name, one thing you can do is add extra logic to your script to take the existing output and rename it to something you can control or predict. 
 
 ### Tools and Utilities
-1. If you're used to Perl regex, Java expressions have slightly different syntax. To test out your validation expressions, you can use a handy tool at [RegexPlanet](http://www.regexplanet.com/advanced/java/index.html).
-2. Stumped for ontology terms to apply to your Agave app inputs, outputs, and parameters? SSWAPmeet has many URI-format terms for [MIME](http://sswapmeet.sswap.info/mime/) types, and BioPortal can provide links to [EDAM](http://bioportal.bioontology.org/ontologies/EDAM). 
-3. Need to validate JSON files? Try [JSONlint](http://jsonlint.com/) or [JSONparser](http://json.parser.online.fr/)
+1. Stumped for ontology terms to apply to your Agave app inputs, outputs, and parameters? SSWAPmeet has many URI-format terms for [MIME](http://sswapmeet.sswap.info/mime/) types, and BioPortal can provide links to [EDAM](http://bioportal.bioontology.org/ontologies/EDAM). 
+2. Need to validate JSON files? Try [JSONlint](http://jsonlint.com/) or [JSONparser](http://json.parser.online.fr/)
 
 Craft a shell script template
 -----------------------------
