@@ -18,6 +18,8 @@ echo "PATH=\$PATH:\$IPLANT_SDK_HOME/scripts:" >> ~/.profile
 echo "export PATH=\$PATH:\$IPLANT_SDK_HOME/foundation-cli/bin" >> ~/.profile
 # To re-init bash _type_:
 source ~/.profile
+# now initialize the command line tools for use with iPlant
+tenants-init -t iplantc.org
 ```
 *This completes the section on installing the iPlant Agave SDK.*
 
