@@ -1,7 +1,8 @@
 Creating an iPlant application for TACC Stampede
 ================================================
 
-We will now go through the process of building and deploying an Agave application to provide 'samtools sort' functionality on TACC's Stampede system. The following tutorial assumes you have properly installed and configured the iPlant SDK on Stampede. They assume you have defined an environment variable IPLANTUSERNAME as your iPlant username (e.g. IPLANTUSERNAME=youriplantusername).
+We will now go through the process of building and deploying an Agave application to provide 'samtools sort' functionality on TACC's Stampede system. The following tutorial assumes you have properly installed and configured the iPlant SDK on Stampede. They assume you have defined an environment variable IPLANTUSERNAME as your iPlant username. For example:
+export IPLANTUSERNAME=<youriplantusername>
 
 Agave application packaging
 ---------------------------
@@ -240,7 +241,7 @@ To tell Agave what files to stage into place before job execution, you need to d
 ```json
    {"id":"inputBam",
      "value":
-        {"default":"",
+        {"default":"input.bam",
          "order":0,
          "required":true,
          "validator":"",
@@ -286,7 +287,7 @@ Parameters are specified in a JSON array, and are broadly similar to inputs. Her
 ```json
     {"id":"maxMemSort",
      "value":
-        {"default":"500000000",
+        {"default":500000000,
          "order":1,
          "required":true,
          "type":"number",

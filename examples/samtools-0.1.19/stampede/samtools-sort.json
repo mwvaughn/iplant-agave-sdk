@@ -24,10 +24,10 @@
  "inputs":[
     {"id":"inputBam",
      "value":
-        {"default":"",
+        {"default":"input.bam",
          "order":0,
          "required":true,
-         "validator":".bam$",
+         "validator":"([^\\s]+(\\.(?i)(bam))$)",
          "visible":true},
      "semantics":
         {"ontology":["http://sswapmeet.sswap.info/mime/application/X-bam"],
@@ -41,7 +41,7 @@
  "parameters":[
     {"id":"maxMemSort",
      "value":
-        {"default":"500000000",
+        {"default":500000000,
          "order":1,
          "required":true,
          "type":"number",
@@ -75,7 +75,7 @@
         {"default":"sorted.bam",
          "order":0,
          "required":false,
-         "validator":"sorted.bam$",
+         "validator":"",
          "visible":true},
      "semantics":
         {"ontology":["http://sswapmeet.sswap.info/mime/application/X-bam"],
