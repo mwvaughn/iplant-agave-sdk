@@ -244,7 +244,7 @@ To tell Agave what files to stage into place before job execution, you need to d
         {"default":"input.bam",
          "order":0,
          "required":true,
-         "validator":"",
+         "validator":"([^\\s]+(\\.(?i)(bam))$)",
          "visible":true},
      "semantics":
         {"ontology":["http://sswapmeet.sswap.info/mime/application/X-bam"],
@@ -265,7 +265,7 @@ Here's a walkthrough of what these fields mean:
 | value.default | | string | The path, relative to X, of the default value for the input |
 | value.order | | integer | Ignore for now |
 | value.required | X | boolean | Is specification of this input mandatory to run a job? |
-| value.validator | | string | [Perl-format regular expression](https://www.cs.tut.fi/~jkorpela/perl/regexp.html) to restrict valid values |
+| value.validator | | string | [Python-formatted regular expression](https://docs.python.org/2/library/re.html) to restrict valid values |
 | value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
 | semantics.ontology | | array[string] | List of ontology terms (or URIs pointing to ontology terms) applicable to the input format |
 | semantics.minCardinality | | integer | Minimum number of values accepted for this input |
@@ -309,7 +309,7 @@ Parameters are specified in a JSON array, and are broadly similar to inputs. Her
 | value.order | | integer | Ignore for now. Supports automatic generation of command lines. |
 | value.required | | boolean | Is specification of this parameter mandatory to run a job?  |
 | value.type | | string | JSON type for this parameter (used to generate and validate UI). Valid values: "string", "number", "enumeration", "bool", "flag" |
-| value.validator | | string | [Perl-formatted regular expression](https://www.cs.tut.fi/~jkorpela/perl/regexp.html) to restrict valid values |
+| value.validator | | string | [Python-formatted regular expression](https://docs.python.org/2/library/re.html) to restrict valid values |
 | value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
 | semantics.ontology | | array[string] | List of ontology terms (or URIs pointing to ontology terms) applicable to the parameter. We recommend at least specifying an [XSL Schema Simple Type](http://www.schemacentral.com/sc/xsd/s-datatypes.xsd.html). |
 | details.description | | string | Human-readable description of the parameter. Often used to create contextual help in automatically generated UI |
@@ -349,7 +349,7 @@ Obligatory field walk-through:
 | value.default | | string | If your app has a fixed-name output, specify it here |
 | value.order | | integer | Ignore for now |
 | value.required | X | boolean | Is specification of this input mandatory to run a job? |
-| value.validator | | string | [Perl-format regular expression](https://www.cs.tut.fi/~jkorpela/perl/regexp.html) used to match output files |
+| value.validator | | string | [Python-formatted regular expression](https://docs.python.org/2/library/re.html) to restrict valid values |
 | value.visible | | boolean | When automatically generated a UI, should this field be visible to end users? |
 | semantics.ontology | | array[string] | List of ontology terms (or URIs pointing to ontology terms) applicable to the output format |
 | semantics.minCardinality | | integer | Minimum number of values expected for this output |
