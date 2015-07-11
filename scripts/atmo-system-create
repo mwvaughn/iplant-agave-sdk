@@ -13,8 +13,8 @@ else
   sedi="sed -i"
 fi
 
-echo "We are going to create and enroll personal copies of various HPC systems"
-echo "used by iPlant staff developers to build apps."
+echo "We are going to enroll your current Atmosphere system as an Agave system"
+echo "so you can run apps on it through Agave."
 echo "The following assumes you have created an Agave client via client-create."
 echo -e "We will now ask you to refresh your access token...\n"
 
@@ -24,11 +24,11 @@ sleep 2
 
 #IPLANT_SDK_HOME="/Users/mwvaughn/agave2-mar-2014/iplant-agave-sdk"
 
-echo "We will now configuring TACC-managed systems and need some info from you"
+echo "We will now configure a new execution system and need some info from you"
 echo -e "\tTACC username"
 echo -e "\tTACC password"
-echo -e "\tThe path to your \$WORK directory on TACC systems"
-echo -e ""
+echo -e "\tThe path to your \$WORK directory on the VM (usually /home/<username>)"
+echo ""
 
 default="Yes"
 read -p "Do you have all the information required? [$default]: " READY

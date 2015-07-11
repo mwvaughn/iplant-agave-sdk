@@ -3,7 +3,8 @@ Using an Atmosphere VM as an Agave Execution System
 As a proof of principle, we will us an Atmosphere virtual machine as an execution host.  This is not a common use case, since usually Agave execution systems are persistent, but it will demonstrate everything you need to know to extend the compute resources of iPlant to include your own systems and apps.
 
 Installing prerequisites
----------------
+------------------------
+
 First, ssh into your iPlant instance.
 ```sh
 ssh <username>@<ip.address>
@@ -13,13 +14,56 @@ Once logged in, let us install the tools we need.
 ```sh
 sudo apt-get install git
 git clone https://bitbucket.org/taccaci/foundation-cli.git
-echo 'export PATH=$PATH:~/foundation-cli/bin'
+echo 'export PATH=$PATH:~/foundation-cli/bin' >> ~/.bashrc
+git clone https://github.com/iPlantCollaborativeOpenSource/iplant-agave-sdk.git
+export PATH=$PATH:~/iplant-agave-sdk/scripts
 ```
 
+Registering your VM as a system
+-------------------------------
 
-----------------
+To run apps on your VM, you simply need to tell Agave where it is and how to login.  We have made a convenience script to help do this, but you still need to know your iPlant username and password.
 
-The apps-clone command will help you port an existing app to your own system.  If the app is "private", the app assets (i.e. executable and wrapper script) remain with the original owner, and only the JSON app description is updated with the execution system information that you specify.  For "public" apps, the entire app bundle is copied to the directory you specify, allowing you to edit any parts of the app you wish.  iPlant has published quite a few public apps.  This tutorial will begin by cloning a public app and mention private apps at the end.
+```sh
+We are going to enroll your current Atmosphere system as an Agave system
+so you can run apps on it through Agave.
+The following assumes you have created an Agave client via client-create.
+We will now ask you to refresh your access token...
+
+
+
+API secret [6bA9SOcyi4o8FZ6K9QwN1PYaEkMa]: 
+API key [jqcKaswlGH4D5snghfMYfhijQE8a]: 
+API username [vaughn]: 
+API password: 
+Token successfully refreshed and cached for 13150 seconds
+ef5f619c98ca45c56d4bc2a29dbc723b
+
+We will now configure a new execution system and need some info from you
+    TACC username
+	TACC password
+	TACC Project name
+    The path to your $WORK directory on the VM (usually /home/<username>)
+
+Do you have all the information required? [Yes]: 
+OK. Let's begin.
+Enter your TACC user account []: vaughn
+Confirmed: TACC user account is vaughn
+Enter your TACC account password []: \n
+Enter your TACC work directory []: /home/vaughn
+Confirmed: TACC work directory is 
+tacc-atmosphere-template
+Enrolling private system tacc-stampede-template
+Successfully added system stampede-04012014-1718-vaughn
+
+Here is a listing of your systems:
+lonestar4.tacc.teragrid.org
+lonestar4-04012014-1718-vaughn
+stampede.tacc.utexas.edu
+stampede-04012014-1718-vaughn
+maverick-04012014-1718-vaughn
+data.iplantcollaborative.org
+```
 
 ### Public Apps
 First off, we should find an app that we would like to clone.
@@ -57,28 +101,6 @@ files-get-recursive -r -S data.iplantcollaborative.org IPLANTUSERNAME/applicatio
 ```
 
 Once downloaded, take a look at blastx.sge and blastx.json.  Do you see anything that should be changed?
-
-### Private Apps
-
-Cloning a private app is straightforward.  It is the same as a public app, just without a new destination path:
-```sh
-apps-clone -V -N new_app_name -R version_number -E system_name agave_app_id
-```
-With private apps, you are dependent on the original author to register the app in a way that preserves the portability of Agave apps to new systems. If you have access to the app's original destinationPath (outside of Agave), you can copy the app's assets to your own location to adapt them as needed to work with your new system.  If not, the best plan is to try a few test jobs to make sure cloning to a new system works well.  Sharing private apps is a great way to disseminate software without relenquishing control of the source code or executables, but it is incumbent on the author make sure the application still works when other users clone it.
-
-Notes
------
-*The following info could be useful in this tutorial, but it needs to be woven in better.  This is still a work in progress.*
-### Uploading the application bundle
-
-Now, upload the application bundle:
-```sh
-# cd out of the bundle
-cd $WORK/iPlant
-# Upload using files-upload
-files-upload -S data.iplantcollaborative.org -F samtools-0.1.19 IPLANTUSERNAME/applications
-```
-Any time you need to update the binaries, libraries, templates, etc. in your non-public application, you can just make the changes locally and re-upload the bundle. The next time Agave invokes a job using this application, it will stage out the updated version of the application bundle.
 
 ### Updating your app description
 
