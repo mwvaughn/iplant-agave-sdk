@@ -24,7 +24,7 @@ We have assembled this software development kit with an eye towards developers a
 * [Crafting applications using Agave argument passing](/docs/iplant-first-app-argpass.md)
 
 *Additional Guides*
-* [Setting up your own systems]
+* [Setting up your own systems](docs/atmo-system.md)
 * [Cloning an iPlant application to your own systems](docs/iplant-clone-app.md)
 * [Advanced app authoring with Launcher]
 
