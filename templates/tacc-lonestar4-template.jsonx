@@ -7,7 +7,6 @@
         "auth": {
             "username": "%USERNAME",
             "password": "%PASSWORD",
-            "credential": "",
             "type": "PASSWORD"
         },
         "host": "lonestar.tacc.utexas.edu",
@@ -78,7 +77,6 @@
         "auth": {
             "username": "%USERNAME",
             "password": "%PASSWORD",
-            "credential": "",
             "type": "PASSWORD"
         }
     },

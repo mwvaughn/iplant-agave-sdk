@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 darwin=false;
 case "`uname`" in
   Darwin*) darwin=true ;;
@@ -19,8 +21,6 @@ echo -e "We will now ask you to refresh your access token...\n"
 set -e
 auth-tokens-create -S
 sleep 2
-
-#IPLANT_SDK_HOME="/Users/mwvaughn/agave2-mar-2014/iplant-agave-sdk"
 
 echo "We will now configuring TACC-managed systems and need some info from you"
 echo -e "\tTACC username"
@@ -59,7 +59,7 @@ echo "Confirmed: TACC work directory is $WORK"
 # Create a date stamp to ensure the system name is fairly unique
 DATESTAMP=$(date +%m%d%Y-%k%M)
 
-for F in $IPLANT_SDK_HOME/templates/tacc*
+for F in $DIR/../templates/tacc*
 do
 BN=$(basename $F .jsonx)
 cp $F "$BN.json" && chmod 600 $BN.json
