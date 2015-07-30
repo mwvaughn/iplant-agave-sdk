@@ -57,7 +57,7 @@ WORKD=${WORKD:-$default}
 echo "Confirmed: TACC work directory is $WORK"
 
 # Create a date stamp to ensure the system name is fairly unique
-DATESTAMP=$(date +%m%d%Y-%k%M)
+DATESTAMP=$(date +%m%d%Y-%0k%M)
 
 for F in $DIR/../templates/tacc*
 do
