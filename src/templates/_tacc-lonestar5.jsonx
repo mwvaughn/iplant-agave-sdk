@@ -1,5 +1,5 @@
 {
-    "description": "Stampede is intended primarily for parallel applications scalable to tens of thousands of cores. Normal batch queues will enable users to run simulations up to 24 hours. Jobs requiring run times and more cores than allowed by the normal queues will be run in a special queue after approval of TACC staff. Serial and development queues will also be configured. In addition, users will be able to run jobs using thousands of the Intel Xeon Phi coprocessors via the same queues to support massively parallel workflows.",
+    "description": "Stampede is intended primarily for parallel applications scalable to tens of thousands of cores. Normal batch queues will enable users to run simulations up to 48 hours. Jobs requiring run times and more cores than allowed by the normal queues will be run in a special queue after approval of TACC staff. Serial and development queues will also be configured. In addition, users will be able to run jobs using thousands of the Intel Xeon Phi coprocessors via the same queues to support massively parallel workflows.",
     "environment": null,
     "executionType": "HPC",
     "id": "stampede-%DATESTAMP-%USERNAME",

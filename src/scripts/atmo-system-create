@@ -13,8 +13,8 @@ else
   sedi="sed -i"
 fi
 
-echo "We are going to create and enroll personal copies of various HPC systems"
-echo "used by iPlant staff developers to build apps."
+echo "We are going to enroll your current Atmosphere system as an Agave system"
+echo "so you can run apps on it through Agave."
 echo "The following assumes you have created an Agave client via client-create."
 echo -e "We will now ask you to refresh your access token...\n"
 
@@ -22,12 +22,13 @@ set -e
 auth-tokens-create -S
 sleep 2
 
-echo "We will now configuring TACC-managed systems and need some info from you"
+#IPLANT_SDK_HOME="/Users/mwvaughn/agave2-mar-2014/iplant-agave-sdk"
+
+echo "We will now configure a new execution system and need some info from you"
 echo -e "\tTACC username"
 echo -e "\tTACC password"
-echo -e "\tTACC Project name"
-echo -e "\tThe path to your \$WORK directory on TACC systems"
-echo -e ""
+echo -e "\tThe path to your \$WORK directory on the VM (usually /home/<username>)"
+echo ""
 
 default="Yes"
 read -p "Do you have all the information required? [$default]: " READY
@@ -46,27 +47,23 @@ read -s -p "Enter your TACC account password [$default]: " PASSWORD
 PASSWORD=${PASSWORD:-$default}
 echo "\n"
 
-default="iPlant-Collabs"
-read -p "Enter a TACC project associated with this system [$default]: " PROJECT
-PROJECT=${PROJECT:-$default}
-echo "Confirmed: TACC project is $PROJECT"
-
 default=""
 read -p "Enter your TACC work directory [$default]: " WORKD
 WORKD=${WORKD:-$default}
 echo "Confirmed: TACC work directory is $WORK"
 
 # Create a date stamp to ensure the system name is fairly unique
-DATESTAMP=$(date +%m%d%Y-%0k%M)
+DATESTAMP=$(date +%m%d%Y-%k%M)
+HOSTNAME=$(hostname -s)
 
-for F in $DIR/../templates/tacc*
+for F in $DIR/../templates/tacc-atmo*
 do
 BN=$(basename $F .jsonx)
 cp $F "$BN.json" && chmod 600 $BN.json
 echo "$BN.json"
 # Find and replace on Macros
+$sedi "s/%HOSTNAME/$HOSTNAME/g" "$BN.json"
 $sedi "s/%USERNAME/$USERNAME/g" "$BN.json"
-$sedi "s/%PROJECT/$PROJECT/g" "$BN.json"
 $sedi "s/%PASSWORD/$PASSWORD/g" "$BN.json"
 $sedi "s/%DATESTAMP/$DATESTAMP/g" "$BN.json"
 $sedi "s|%WORK|$WORKD|g" "$BN.json"
