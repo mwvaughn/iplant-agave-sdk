@@ -65,7 +65,7 @@ docker-test:
 
 # Github release
 .SILENT: dist
-dist: cyverse-customize
+dist: $(OBJ)
 	tar -czf "$(OBJ).tgz" $(OBJ)
 	rm -rf $(OBJ)
 	echo "Now, run 'git commit -a -m MESSAGE' to update the repository."
@@ -74,6 +74,6 @@ dist: cyverse-customize
 release:
 	git diff-index --quiet HEAD
 	if [ $$? -ne 0 ]; then echo "You have unstaged changes. Please commit or discard then re-run make clean && make release."; exit 0; fi
-	git tag -a "v$(sdk_version)" -m "Cyverse SDK $(sdk_version). Requires Agave $(api_version)/$(api_release)."
+	git tag -a "v$(sdk_version)" -m "Cyverse SDK $(sdk_version). Requires Agave API $(api_version)/$(api_release)."
 	git push origin "v$(sdk_version)"
 
