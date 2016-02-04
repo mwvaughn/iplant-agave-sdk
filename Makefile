@@ -1,6 +1,10 @@
 # Matthew Vaughn
 # Feb 4, 2016
 
+api_version="v2"
+api_release="2.1.6"
+sdk_version="1.1.0"
+
 CC=
 CFLAGS=
 SOURCES = cyverse-customize
@@ -57,4 +61,14 @@ docker-test:
 	if [ $$? -ne 0 ] ; then echo "Docker not found or unreachable. Exiting." ; exit 1 ; fi
 	docker info
 
-# Dockerized
+# Docker image
+
+# Github release
+dist: cyverse-customize
+	tar -czf "$(OBJ).tgz" $(OBJ)
+	rm -rf $(OBJ)
+
+github-release: $(OBJ) $(DIST)
+	git tag -a "v$(sdk_version)" -m "Cyverse SDK $(sdk_version). Requires Agave $(api_version)/$(api_release)."
+	git push origin "v$(sdk_version)"
+
