@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 1.0.1 - 02/05/2016
+## Version 1.0.2 - 02/05/2016
 ### Added
 * cyverse-cli-info command to report API, tenant, etc
 * Support for TACC global WORK storageSystem
@@ -10,7 +10,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 * Fork of iplant-agave-sdk, placed under active version management
+* Fixed installation instructions
 
 ### Removed
 * Support for Lonestar4 executionSystem
-* Support for Wrangler executionSystem
+* Support for Wrangler executionSystem (will return soon)
