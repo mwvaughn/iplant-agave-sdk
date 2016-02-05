@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 1.0.0 - 02/05/2016
+## 1.0.1 - 02/05/2016
 ### Added
 * cyverse-cli-info command to report API, tenant, etc
 * Support for TACC global WORK storageSystem
