@@ -1,14 +1,15 @@
 # Matthew Vaughn
 # Feb 4, 2016
 
+sdk_version=$(echo -n $(cat VERSION))
 api_version="v2"
 api_release="2.1.6"
-sdk_version="1.1.0"
 
-CC=
-CFLAGS=
-SOURCES = cyverse-customize
+TENANT_NAME = 'Cyverse'
+TENANT_KEY = 'iplantc.org'
 OBJ = cyverse-cli
+
+SOURCES = customize
 PREFIX = $(HOME)
 
 # Local installation
@@ -19,10 +20,10 @@ foundation-cli: git-test
 	git clone https://bitbucket.org/taccaci/foundation-cli
 	rm -rf foundation-cli/.git
 
-cyverse-base: foundation-cli
+base: foundation-cli
 	mv foundation-cli $(OBJ)
 
-cyverse-customize: cyverse-base
+customize: base
 	cp -r src/templates $(OBJ)/
 	cp -r src/scripts/* $(OBJ)/bin/
 
@@ -36,10 +37,11 @@ install: $(OBJ)
 	find $(PREFIX)/$(OBJ)/bin -type f ! -name '*.sh' -exec chmod a+rx {} \;
 	rm -rf $(OBJ)
 	echo "Installed in $(PREFIX)/$(OBJ)"
+	echo "Ensure that $(PREFIX)/$(OBJ)/bin and $(PREFIX)/$(OBJ)/scripts are in \$PATH."
 
 .SILENT: uninstall
 uninstall:
-	if [ -d $(PREFIX)/$(OBJ) ];then rm -rf $(PREFIX)/$(OBJ); echo "Uninstalled."; exit 0; fi
+	if [ -d $(PREFIX)/$(OBJ) ];then rm -rf $(PREFIX)/$(OBJ); echo "Uninstalled $(PREFIX)/$(OBJ)."; exit 0; fi
 
 .SILENT: update
 update: clean git-test
@@ -65,15 +67,15 @@ docker-test:
 
 # Github release
 .SILENT: dist
-dist: $(OBJ)
+dist: all
 	tar -czf "$(OBJ).tgz" $(OBJ)
 	rm -rf $(OBJ)
-	echo "Now, run 'git commit -a -m MESSAGE' to update the repository."
+	echo "Ready for release. "
 
 .SILENT: release
 release:
 	git diff-index --quiet HEAD
 	if [ $$? -ne 0 ]; then echo "You have unstaged changes. Please commit or discard then re-run make clean && make release."; exit 0; fi
-	git tag -a "v$(sdk_version)" -m "Cyverse SDK $(sdk_version). Requires Agave API $(api_version)/$(api_release)."
+	git tag -a "v$(sdk_version)" -m "$(TENANT_NAME) SDK $(sdk_version). Requires Agave API $(api_version)/$(api_release)."
 	git push origin "v$(sdk_version)"
 
