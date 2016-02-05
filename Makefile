@@ -1,31 +1,48 @@
 # Matthew Vaughn
 # Feb 4, 2016
 
-sdk_version=$(echo -n $(cat VERSION))
-api_version="v2"
-api_release="2.1.6"
+sdk_version := $(shell cat VERSION)
+api_version := v2
+api_release := 2.1.6
 
-TENANT_NAME = 'Cyverse'
-TENANT_KEY = 'iplantc.org'
+TENANT_NAME := 'Cyverse'
+TENANT_KEY := 'iplantc.org'
+PREFIX := $(HOME)
+
 OBJ = cyverse-cli
-
 SOURCES = customize
-PREFIX = $(HOME)
 
 # Local installation
 
 all: $(SOURCES)
 
+.SILENT: foundation-cli
 foundation-cli: git-test
-	git clone https://bitbucket.org/taccaci/foundation-cli
-	rm -rf foundation-cli/.git
+	echo "Fetching foundation-cli source..."
+	if [ ! -d "$(OBJ)" ]; then \
+		git clone -q https://bitbucket.org/taccaci/foundation-cli ;\
+		rm -rf foundation-cli/.git ;\
+		mv foundation-cli $(OBJ); \
+	fi
 
-base: foundation-cli
-	mv foundation-cli $(OBJ)
+.SILENT: customize
+customize: foundation-cli
+	echo "Customizing..."
+	cp -fr src/templates $(OBJ)/
+	cp -fr src/scripts/* $(OBJ)/bin/
+	sed -i '' -e 's|$${TENANT_NAME}|$(TENANT_NAME)|g' \
+		-e 's|$${TENANT_KEY}|$(TENANT_KEY)|g' \
+		-e 's|$${api_version}|$(api_version)|g' \
+		-e 's|$${api_release}|$(api_release)|g' \
+		-e 's|$${sdk_version}|$(sdk_version)|g' \
+		$(OBJ)/bin/cyverse-cli-info
+	find $(OBJ)/bin -type f ! -name '*.sh' -exec chmod a+rx {} \;
 
-customize: base
-	cp -r src/templates $(OBJ)/
-	cp -r src/scripts/* $(OBJ)/bin/
+
+.SILENT: test
+test:
+	echo "You should see a report from the cyverse-cli-info command now...\n"
+	$(OBJ)/bin/cyverse-cli-info
 
 .PHONY: clean
 clean:
@@ -34,10 +51,9 @@ clean:
 .SILENT: install
 install: $(OBJ)
 	cp -fr $(OBJ) $(PREFIX)
-	find $(PREFIX)/$(OBJ)/bin -type f ! -name '*.sh' -exec chmod a+rx {} \;
 	rm -rf $(OBJ)
 	echo "Installed in $(PREFIX)/$(OBJ)"
-	echo "Ensure that $(PREFIX)/$(OBJ)/bin and $(PREFIX)/$(OBJ)/scripts are in \$PATH."
+	echo "Ensure that $(PREFIX)/$(OBJ)/bin is in your PATH."
 
 .SILENT: uninstall
 uninstall:
